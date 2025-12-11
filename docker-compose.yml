@@ -3,23 +3,29 @@ version: "3.7"
 services:
   db:
     build:
+      #Contexto donde se va a buscar el dockerfile para montar la bada
       context: ./apps/data
-      dockerfile: Dockerfile
     container_name: db1
+    #restart le indica a docker que si el servicio se para lo reinicie siempre para que no pare de funcionar
     restart: always
+    #Direccion del volumen, en este caso es un volumen virtual en docker
     volumes:
       - db1-data:/var/lib/mysql
+      #credenciales basicas de la base de datos
     environment:
       MYSQL_DATABASE: linares_db1
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
       MYSQL_ROOT_PASSWORD: root
+    #puerto especifico de la misma
     ports:
       - "3309:3306"
 
   proxy:
+    #imagen oficial de nginx en este caso alpine por el peso
     image: nginx:alpine
     container_name: proxy
+    #copiamos nuestro archivo nginx.conf para sobreescribir el de nuestro contenedor
     volumes:
       - ./config/nginx.proxy.conf:/etc/nginx/conf.d/z-overrides.conf
     ports:
@@ -27,8 +33,11 @@ services:
 
   site2:
     build:
+      #localizacion del dockerfile especifico
       context: ./apps/chiquito
     container_name: chiquito_app
+    #En este caso el volumen es un bind mount no un volumen virtual
+    #montamos el contenido de la carpeta chiquito en el workdir
     volumes:
       - ./apps/chiquito:/var/www/html/
 
@@ -36,6 +45,8 @@ services:
     build:
       context: ./apps/linares
     container_name: linares1
+    #En este caso el volumen es un bind mount no un volumen virtual
+    #montamos el contenido de la carpeta Linares en el workdir
     volumes:
       - ./apps/linares:/var/www/html/
 
@@ -43,6 +54,8 @@ services:
     build:
       context: ./apps/linares
     container_name: linares2
+    #En este caso el volumen es un bind mount no un volumen virtual
+    #montamos el contenido de la carpeta Linares en el workdir
     volumes:
       - ./apps/linares:/var/www/html/
 

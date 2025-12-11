@@ -7,8 +7,8 @@ class VotosRepo
     public function __construct($host, $user, $password, $database)
     {
         try {
-            $this->conn = new PDO("mysql:host=db;dbname=linares_db1", $user, $password);
-        } catch (PDOException $e) {
+            $this->conn = new PDO("mysql:host=db;dbname=linares_db1", $user, $password); // ponemos db porque es el nombre de host de
+        } catch (PDOException $e) {                                                                                //la db en nuestro docker compose 
             die("Error de conexión: " . $e->getMessage());
         }
     }
@@ -32,8 +32,8 @@ class VotosRepo
         $sql = "SELECT SUM(votos_si) as total FROM votos";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row['total'] ?? 0;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
     }
 
     public function findAllNo()
@@ -41,13 +41,7 @@ class VotosRepo
         $sql = "SELECT SUM(votos_no) as total FROM votos";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row['total'] ?? 0;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
     }
 }
-
-// Ejemplo de uso:
-// $repo = new VotosRepository('db1', 'user', '1234', 'linares_db');
-// $repo->saveVotoSi();
-// echo "Votos SÍ: " . $repo->findAllSi();
-// echo "Votos NO: " . $repo->findAllNo();

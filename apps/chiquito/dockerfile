@@ -1,12 +1,12 @@
 # Imagen oficial de apache con php
 FROM php:8.2-apache 
 
-# Instalar extensión PDO MySQL
+# Instalar extensión PDO MySQL para la bada
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Especifico el directorio de trabajo dentro del contenedor
+# Especifico el directorio de trabajo dentro del contenedor(Para comandos como RUN, COPY...)
 WORKDIR /var/www/html
 
-# Dar permisos
+# Damos permisos al usuario dentro del contenedor
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html

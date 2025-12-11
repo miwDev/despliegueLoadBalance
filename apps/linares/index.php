@@ -3,7 +3,7 @@ require_once '/var/www/html/VotosRepo.php';
 
 $repo = new VotosRepo('db1', 'user', '1234', 'linares_db');
 
-echo "Dirección del Servidor ==> " . $_SERVER["SERVER_ADDR"] . "<br>";
+echo "Dirección del Servidor ==> " . $_SERVER["SERVER_ADDR"] . "<br>"; // debug para enseñar el cambio de carga entre contenedores
 echo "Nombre del Servidor ==> " . $_SERVER['SERVER_NAME'] . "<br>";
 
 $resultado_mensaje = "";

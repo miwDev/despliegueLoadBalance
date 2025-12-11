@@ -1,2 +1,5 @@
 # Usa la imagen oficial de MariaDB
 FROM mariadb:10.6
+
+#Podriamos poner las credenciades de la base de datos aqui
+#pero las hemos incluido en el docker compose
