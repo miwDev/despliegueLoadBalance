@@ -97,7 +97,7 @@ Una vez dentro de este archivo nos encontraremos una estructura similar a la sig
 127.0.0.1 www.freedomforLinares.com // para que nuestra pagina funcione
 ```
 
-Una vez modificado el archivo haremos "cmmd + o" luego haremos "Enter" y luego "cmmd + x" y nuestro archivo quedara modificado y guardado con los dos dominios añadidos.
+Una vez modificado el archivo haremos `cmmd + o` luego haremos `Enter` y luego `cmmd + x` y nuestro archivo quedara modificado y guardado con los dos dominios añadidos.
 
 ### paso 4: configuracion de la base de datos
 
