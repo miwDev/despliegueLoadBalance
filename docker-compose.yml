@@ -1,0 +1,56 @@
+version: "3.7"
+
+services:
+  db:
+    build:
+      context: ./apps/data
+      dockerfile: Dockerfile
+    container_name: db1
+    restart: always
+    volumes:
+      - db1-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: linares_db1
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3309:3306"
+
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    volumes:
+      - ./config/nginx.proxy.conf:/etc/nginx/conf.d/z-overrides.conf
+    ports:
+      - 8090:80
+
+  site2:
+    build:
+      context: ./apps/chiquito
+    container_name: chiquito_app
+    volumes:
+      - ./apps/chiquito:/var/www/html/
+
+  site1-loadbalance1:
+    build:
+      context: ./apps/linares
+    container_name: linares1
+    volumes:
+      - ./apps/linares:/var/www/html/
+
+  site1-loadbalance2:
+    build:
+      context: ./apps/linares
+    container_name: linares2
+    volumes:
+      - ./apps/linares:/var/www/html/
+
+  site1-loadbalance3:
+    build:
+      context: ./apps/linares
+    container_name: linares3
+    volumes:
+      - ./apps/linares:/var/www/html/
+volumes:
+  db1-data:
